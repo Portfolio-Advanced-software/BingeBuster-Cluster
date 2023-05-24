@@ -1,0 +1,35 @@
+name: Apply Kubernetes YAML
+
+on:
+  push:
+    branches:
+      - main
+
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: bingebuster-cluster 
+  GKE_ZONE: eu-west4-a
+  
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up gcloud
+        uses: google-github-actions/auth@v0.6.0
+        with:
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --zone ${{ env.GKE_ZONE }}
+
+      - name: Apply Kubernetes YAML files
+        run: |
+          kubectl apply -f ./Deployments/deployment.yml
