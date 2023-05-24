@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: bingebuster-cluster 
-  GKE_ZONE: eu-west4-a
+  GKE_ZONE: europe-west4
   
   
 jobs:
