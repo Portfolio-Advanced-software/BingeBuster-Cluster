@@ -9,11 +9,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bingebuster-containers
+      app: bingebuster
   template:
     metadata:
       labels:
-        app: bingebuster-containers
+        app: bingebuster
     spec:
       containers:
       - name: api-gateway
