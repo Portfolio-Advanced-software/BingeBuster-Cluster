@@ -49,4 +49,4 @@ jobs:
       - name: Apply Kubernetes YAML files
         run: |
           kubectl apply -f ./Deployments/deployment.yml
-          kubectl apply -f ./Service/service.yml
+          kubectl apply -f ./Services/service.yml
