@@ -6,7 +6,7 @@ metadata:
     app: bingebuster
 spec:
   selector:
-    app: api-gateway
+    app: bingebuster
   type: LoadBalancer
   ports:
   - port: 80
