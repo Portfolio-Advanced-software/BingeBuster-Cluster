@@ -50,3 +50,4 @@ jobs:
         run: |
           kubectl apply -f ./Deployments/deployment.yml
           kubectl apply -f ./Services/service.yml
+          kubectl apply -f ./Services/auth-service.yml
