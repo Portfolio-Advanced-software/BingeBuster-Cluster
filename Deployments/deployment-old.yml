@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bingebuster
+  labels:
+    app: bingebuster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bingebuster
+  template:
+    metadata:
+      labels:
+        app: bingebuster
+    spec:
+      containers:
+      - name: api-gateway
+        image: milofow/bingebuster-gateway:latest
+        ports:
+          - containerPort: 3000
+      - name: auth-service
+        image: milofow/bingebuster-authservice:latest
+        ports:
+          - containerPort: 50051
+      - name: user-service
+        image: milofow/bingebuster-userservice:latest
+        ports:
+          - containerPort: 50053
+      - name: movie-service
+        image: milofow/bingebuster-movieservice:latest
+        ports:
+          - containerPort: 50055
+      - name: watchhistory-service
+        image: milofow/bingebuster-watchhistoryservice:latest
+        ports:
+          - containerPort: 50056

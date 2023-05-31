@@ -1,38 +1,65 @@
----
+# auth-service-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bingebuster
-  labels:
-    app: bingebuster
+  name: auth-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bingebuster
+      app: auth-service
   template:
     metadata:
       labels:
-        app: bingebuster
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: milofow/bingebuster-authservice:latest
+        ports:
+          - containerPort: 50051
+
+---
+
+# movie-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-service
+  template:
+    metadata:
+      labels:
+        app: movie-service
+    spec:
+      containers:
+      - name: movie-service
+        image: milofow/bingebuster-movieservice:latest
+        ports:
+          - containerPort: 50055
+
+---
+# api-gateway-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
     spec:
       containers:
       - name: api-gateway
         image: milofow/bingebuster-gateway:latest
         ports:
           - containerPort: 3000
-      - name: auth-service
-        image: milofow/bingebuster-authservice:latest
-        ports:
-          - containerPort: 50051
-      - name: user-service
-        image: milofow/bingebuster-userservice:latest
-        ports:
-          - containerPort: 50053
-      - name: movie-service
-        image: milofow/bingebuster-movieservice:latest
-        ports:
-          - containerPort: 50055
-      - name: watchhistory-service
-        image: milofow/bingebuster-watchhistoryservice:latest
-        ports:
-          - containerPort: 50056
