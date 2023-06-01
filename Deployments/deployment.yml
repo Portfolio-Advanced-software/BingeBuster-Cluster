@@ -36,6 +36,7 @@ spec:
       labels:
         app: movie-service
     spec:
+      hostname: movie-service-host
       containers:
       - name: movie-service
         image: milofow/bingebuster-movieservice:latest
