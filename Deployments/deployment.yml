@@ -64,3 +64,28 @@ spec:
         image: milofow/bingebuster-gateway:latest
         ports:
           - containerPort: 3000
+    
+    
+---
+
+# auth-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchhistory-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: watchhistory-service
+  template:
+    metadata:
+      labels:
+        app: watchhistory-service
+    spec:
+      containers:
+      - name: watchhistory-service
+        image: milofow/bingebuster-watchhistoryservice:latest
+        ports:
+          - containerPort: 50056
+
