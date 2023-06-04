@@ -50,3 +50,4 @@ jobs:
         run: |
           kubectl apply -f ./Deployments/deployments.yml
           kubectl apply -f ./Services/services.yml
+          kubectl apply -f ./Scaling/hpa-pod-scaling.yml
