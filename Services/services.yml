@@ -21,7 +21,7 @@ spec:
   selector:
     app: prometheus
   ports:
-    - name: TCP
+    - name: tcp
       port: 9090
       targetPort: 9090
   type: LoadBalancer
