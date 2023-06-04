@@ -86,6 +86,10 @@ spec:
     metadata:
       labels:
         app: api-gateway
+      annotations:   
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
     spec:
       containers:
       - name: api-gateway
@@ -103,7 +107,7 @@ spec:
             value: "watchhistory-service:50056"
           - name: AUTHZ_SVC_URL
             value: "auth-service:50057"
-    
+
 ---
 
 # watchhistory-service-deployment.yaml
@@ -286,4 +290,32 @@ data:
             replacement: /metrics
             target_label: __metrics_path__
 
+---
 
+# grafana-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+          - containerPort: 3000
+        env:
+          - name: GF_SECURITY_ADMIN_USER
+            value: "admin"                          # Set the admin username
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: "password"                       # Set the admin password
+          - name: GF_INSTALL_PLUGINS
+            value: "grafana-clock-panel"            # Add any desired plugins here
