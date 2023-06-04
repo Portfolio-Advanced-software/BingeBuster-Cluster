@@ -269,8 +269,7 @@ data:
           - role: endpoints
         scheme: https
         tls_config:
-          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+          insecure_skip_verify: true
         relabel_configs:
           - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
             action: keep
@@ -318,7 +317,7 @@ spec:
       - name: grafana
         image: grafana/grafana:latest
         ports:
-          - containerPort: 4000
+          - containerPort: 3000
         env:
           - name: GF_SECURITY_ADMIN_USER
             value: "admin"                          # Set the admin username
