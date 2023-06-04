@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: auth-service
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: auth-service
@@ -27,7 +27,7 @@ kind: Deployment
 metadata:
   name: movie-service
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: movie-service
@@ -50,7 +50,7 @@ kind: Deployment
 metadata:
   name: api-gateway
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: api-gateway
@@ -68,13 +68,13 @@ spec:
     
 ---
 
-# auth-service-deployment.yaml
+# watchhistory-service-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: watchhistory-service
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: watchhistory-service
@@ -88,6 +88,54 @@ spec:
         image: milofow/bingebuster-watchhistoryservice:latest
         ports:
           - containerPort: 50056
+
+
+---
+
+# user-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: milofow/bingebuster-userservice:latest
+        ports:
+          - containerPort: 50053
+
+---
+
+# authz-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authz-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authz-service
+  template:
+    metadata:
+      labels:
+        app: authz-service
+    spec:
+      containers:
+      - name: authz-service
+        image: milofow/bingebuster-authzservice:latest
+        ports:
+          - containerPort: 50057
+
 
 
 ---
@@ -110,15 +158,51 @@ spec:
       containers:
         - name: prometheus
           image: prom/prometheus:v2.30.3
-          args:
-            - "--config.file=/etc/prometheus/prometheus.yml"
           ports:
             - containerPort: 9090
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
           volumeMounts:
-            - name: prometheus-config
-              mountPath: /etc/prometheus/
+            - name: config-volume
+              mountPath: /etc/prometheus
       volumes:
-        - name: prometheus-config
+        - name: config-volume
           configMap:
             name: prometheus-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+      - job_name: 'kubernetes-apiservers'
+        kubernetes_sd_configs:
+          - role: endpoints
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: default;kubernetes;https
+      - job_name: 'kubernetes-nodes'
+        kubernetes_sd_configs:
+          - role: node
+        relabel_configs:
+          - source_labels: [__address__]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:10255
+            target_label: __address__
+          - source_labels: [__address__]
+            action: replace
+            regex: '[^:]+:(\d+)'
+            replacement: /metrics
+            target_label: __metrics_path__
+
 
