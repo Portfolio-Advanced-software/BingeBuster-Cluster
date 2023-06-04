@@ -92,7 +92,17 @@ spec:
         image: milofow/bingebuster-gateway:latest
         ports:
           - containerPort: 3000
-
+        env:
+          - name: AUTH_SVC_URL
+            value: "auth-service:50051"
+          - name: USER_SVC_URL
+            value: "user-service:50053"
+          - name: MOVIE_SVC_URL
+            value: "movie-service:50055"
+          - name: HISTORY_SVC_URL
+            value: "watchhistory-service:50056"
+          - name: AUTHZ_SVC_URL
+            value: "auth-service:50057"
     
 ---
 
