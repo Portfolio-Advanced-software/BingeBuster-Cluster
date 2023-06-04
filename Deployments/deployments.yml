@@ -266,7 +266,7 @@ data:
       scrape_interval: 10s
       static_configs:
       - targets:
-        - http://35.204.225.86/metrics
+        - api-gateway:3000
 
 
 
