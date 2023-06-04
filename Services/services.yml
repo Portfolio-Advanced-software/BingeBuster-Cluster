@@ -13,6 +13,77 @@ spec:
     targetPort: 3000
 
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 50053
+      targetPort: 50053
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-service
+spec:
+  selector:
+    app: movie-service
+  ports:
+    - protocol: TCP
+      port: 50055
+      targetPort: 50055
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: watchhistory-service
+spec:
+  selector:
+    app: watchhistory-service
+  ports:
+    - protocol: TCP
+      port: 50056
+      targetPort: 50056
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: authz-service
+spec:
+  selector:
+    app: authz-service
+  ports:
+    - protocol: TCP
+      port: 50057
+      targetPort: 50057
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -25,16 +96,3 @@ spec:
       port: 9090
       targetPort: 9090
   type: LoadBalancer
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: auth-service
-spec:
-  selector:
-    app: auth-service
-  ports:
-    - protocol: TCP
-      port: 50051
-      targetPort: 50051
