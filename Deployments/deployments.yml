@@ -18,7 +18,21 @@ spec:
         image: milofow/bingebuster-authservice:latest
         ports:
           - containerPort: 50051
-
+        env:
+          - name: MONGODB_USER
+            value: "user-service"
+          - name: MONGODB_PWD
+            value: "vLxxhmS0eJFwmteF"
+          - name: MONGODB_CLUSTER
+            value: "cluster0.fpedw5d.mongodb.net/"
+          - name: MONGODB_DB
+            value: "AuthService"
+          - name: MONGODB_COLLECTION
+            value: "Users"
+          - name: RABBITMQ_USER
+            value: "tnhdeowx"
+          - name: RABBITMQ_PWD
+            value: "tInXH7wKtKdyn-v97fZ_HGM5XmHsDTNl"
 ---
 
 # movie-service-deployment.yaml
@@ -42,7 +56,21 @@ spec:
         image: milofow/bingebuster-movieservice:latest
         ports:
           - containerPort: 50055
-
+        env:
+          - name: MONGODB_USER
+            value: "user-service"
+          - name: MONGODB_PWD
+            value: "vLxxhmS0eJFwmteF"
+          - name: MONGODB_CLUSTER
+            value: "cluster0.fpedw5d.mongodb.net/"
+          - name: MONGODB_DB
+            value: "MovieService"
+          - name: MONGODB_COLLECTION
+            value: "Movies"
+          - name: RABBITMQ_USER
+            value: "tnhdeowx"
+          - name: RABBITMQ_PWD
+            value: "tInXH7wKtKdyn-v97fZ_HGM5XmHsDTNl"
 ---
 # api-gateway-deployment.yaml
 apiVersion: apps/v1
@@ -64,7 +92,7 @@ spec:
         image: milofow/bingebuster-gateway:latest
         ports:
           - containerPort: 3000
-    
+
     
 ---
 
@@ -88,7 +116,21 @@ spec:
         image: milofow/bingebuster-watchhistoryservice:latest
         ports:
           - containerPort: 50056
-
+        env:
+          - name: MONGODB_USER
+            value: "user-service"
+          - name: MONGODB_PWD
+            value: "vLxxhmS0eJFwmteF"
+          - name: MONGODB_CLUSTER
+            value: "cluster0.fpedw5d.mongodb.net/"
+          - name: MONGODB_DB
+            value: "WatchHistoryService"
+          - name: MONGODB_COLLECTION
+            value: "Histories"
+          - name: RABBITMQ_USER
+            value: "tnhdeowx"
+          - name: RABBITMQ_PWD
+            value: "tInXH7wKtKdyn-v97fZ_HGM5XmHsDTNl"
 
 ---
 
@@ -112,6 +154,21 @@ spec:
         image: milofow/bingebuster-userservice:latest
         ports:
           - containerPort: 50053
+        env:
+          - name: MONGODB_USER
+            value: "user-service"
+          - name: MONGODB_PWD
+            value: "vLxxhmS0eJFwmteF"
+          - name: MONGODB_CLUSTER
+            value: "cluster0.fpedw5d.mongodb.net/"
+          - name: MONGODB_DB
+            value: "UserService"
+          - name: MONGODB_COLLECTION
+            value: "Users"
+          - name: RABBITMQ_USER
+            value: "tnhdeowx"
+          - name: RABBITMQ_PWD
+            value: "tInXH7wKtKdyn-v97fZ_HGM5XmHsDTNl"
 
 ---
 
@@ -135,7 +192,21 @@ spec:
         image: milofow/bingebuster-authzservice:latest
         ports:
           - containerPort: 50057
-
+        env:
+          - name: MONGODB_USER
+            value: "user-service"
+          - name: MONGODB_PWD
+            value: "vLxxhmS0eJFwmteF"
+          - name: MONGODB_CLUSTER
+            value: "cluster0.fpedw5d.mongodb.net/"
+          - name: MONGODB_DB
+            value: "AuthzService"
+          - name: MONGODB_COLLECTION
+            value: "Users"
+          - name: RABBITMQ_USER
+            value: "tnhdeowx"
+          - name: RABBITMQ_PWD
+            value: "tInXH7wKtKdyn-v97fZ_HGM5XmHsDTNl"
 
 
 ---
