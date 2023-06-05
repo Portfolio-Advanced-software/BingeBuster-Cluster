@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: auth-service
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: auth-service
@@ -47,7 +47,7 @@ kind: Deployment
 metadata:
   name: movie-service
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: movie-service
@@ -91,7 +91,7 @@ kind: Deployment
 metadata:
   name: api-gateway
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: api-gateway
@@ -134,7 +134,7 @@ kind: Deployment
 metadata:
   name: watchhistory-service
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: watchhistory-service
@@ -177,7 +177,7 @@ kind: Deployment
 metadata:
   name: user-service
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: user-service
@@ -220,7 +220,7 @@ kind: Deployment
 metadata:
   name: authz-service
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: authz-service
@@ -264,7 +264,7 @@ kind: Deployment
 metadata:
   name: prometheus
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: prometheus
@@ -313,7 +313,7 @@ kind: Deployment
 metadata:
   name: grafana
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: grafana
